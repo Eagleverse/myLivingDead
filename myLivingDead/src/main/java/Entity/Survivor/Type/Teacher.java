@@ -5,7 +5,7 @@ import Entity.Survivor.Survivor;
 
 public class Teacher extends Survivor {
     private int health = 50;
-    private int damage = 5;
+    final private int damage = 5;
     private boolean isAlive = true;
 
     @Override

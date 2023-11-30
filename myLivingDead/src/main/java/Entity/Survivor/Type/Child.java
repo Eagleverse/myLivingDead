@@ -5,8 +5,9 @@ import Entity.Survivor.Survivor;
 
 public class Child extends Survivor {
     private int health = 20;
-    private int damage = 2;
+    final private int damage = 2;
     private boolean isAlive = true;
+    
     @Override
     public void doAttack(Entity target) {
         target.onAttack(damage);

@@ -5,7 +5,7 @@ import Entity.Zombie.Zombie;
 
 public class Tank extends Zombie {
     private int health = 150;
-    private int damage = 20;
+    final private int damage = 20;
     private boolean isAlive = true;
 
     @Override
