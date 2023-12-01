@@ -3,7 +3,7 @@ package Entity.Survivor.Type;
 import Entity.Entity;
 import Entity.Survivor.Survivor;
 
-public class Solider extends Survivor {
+public class Soldier extends Survivor {
     private int health = 100;
     final private int damage = 10;
     private boolean isAlive = true;
