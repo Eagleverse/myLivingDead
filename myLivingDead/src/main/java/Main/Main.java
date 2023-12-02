@@ -16,8 +16,8 @@ import java.util.*;
  */
 public class Main {
     
-    private ArrayList<Survivor> survivorList = new ArrayList<>();
-    private ArrayList<Zombie> zombieList = new ArrayList<>();
+    private ArrayList<Entity> survivorList = new ArrayList<>();
+    private ArrayList<Entity> zombieList = new ArrayList<>();
     
     //create random number of survivors
     public void createSurvivor(){
@@ -84,8 +84,8 @@ public class Main {
         }
     }
     
-    //check for number of survivors alive and return number
-    public Integer checkSurvivingSurvivors(ArrayList<Survivor> list){
+    //check for number of entities alive and return number
+    public Integer checkSurvivingEntities(ArrayList<Entity> list){
         int survivingSurvivors = 0;
         for(int i=0;i<list.size();i++){
             if(list.get(i).checkAlive()==true){
@@ -95,36 +95,25 @@ public class Main {
         return survivingSurvivors;
     }
     
-    //check for number of zombies alive and return number
-    public Integer checkSurvivingZombies(ArrayList<Zombie> list){
-        int survivingZombies = 0;
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).checkAlive()==true){
-                survivingZombies++;
-            }
-        }
-        return survivingZombies;
-    }
-    
     //prints results
     public void printResults(){
         System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety.");
         System.out.println("But there are " + zombieList.size() + " zombies waiting for them.");
-        System.out.println("It seems " + checkSurvivingSurvivors(survivorList) + " made it to safety.");
+        System.out.println("It seems " + checkSurvivingEntities(survivorList) + " made it to safety.");
     }
     
     public void run(){
         createSurvivor();
         createZombie();
-        int survivorsAlive = checkSurvivingSurvivors(survivorList);
-        int zombiesAlive = checkSurvivingZombies(zombieList);
+        int survivorsAlive = checkSurvivingEntities(survivorList);
+        int zombiesAlive = checkSurvivingEntities(zombieList);
         
         //while there are still more than 0 survivors alive and more than 0 zombies alive, they attack each other
         while(survivorsAlive>0 && zombiesAlive>0){
             survivorAttack();
             zombieAttack();
-            survivorsAlive = checkSurvivingSurvivors(survivorList);
-            zombiesAlive=checkSurvivingZombies(zombieList);
+            survivorsAlive = checkSurvivingEntities(survivorList);
+            zombiesAlive=checkSurvivingEntities(zombieList);
         }
         printResults();
     }
