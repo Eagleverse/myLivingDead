@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Main;
+
 import Entity.Entity;
-import Entity.Survivor.Survivor;
+//import Entity.Survivor.Survivor;
 import Entity.Survivor.Type.*;
-import Entity.Zombie.Zombie;
+//import Entity.Zombie.Zombie;
 import Entity.Zombie.Type.*;
 import java.util.*;
 
@@ -15,111 +16,125 @@ import java.util.*;
  * @author kaifa
  */
 public class Main {
-    
-    private ArrayList<Entity> survivorList = new ArrayList<>();
-    private ArrayList<Entity> zombieList = new ArrayList<>();
-    
+
+    private final ArrayList<Entity> survivorList = new ArrayList<>();
+    private final ArrayList<Entity> zombieList = new ArrayList<>();
+
     //create random number of survivors
-    public void createSurvivor(){
+    public void createSurvivor() {
         Random rand = new Random();
         //generate numbers between 1 and 20
-        int numOfSurvivor = rand.nextInt(20)+1;
-        for(int i=0;i<numOfSurvivor;i++){
+        int numOfSurvivor = rand.nextInt(20) + 1;
+        for (int i = 0; i < numOfSurvivor; i++) {
             //generate numbers 0 to 2
             int randNum = rand.nextInt(3);
             switch (randNum) {
-                case 0://create Soldier survivor if random number is 0
+                case 0 -> //create Soldier survivor if random number is 0
+                {
                     survivorList.add(new Soldier());
-                    break;
-                case 1://create Teacher survivor if random number is 1
+                    //     System.out.println("Added Soldier");
+                }
+                case 1 -> //create Teacher survivor if random number is 1
+                {
                     survivorList.add(new Teacher());
-                    break;
-                case 2://create Child survivor if random number is 2
+                    //      System.out.println("Added Teacher");
+                }
+
+                case 2 -> //create Child survivor if random number is 2
+                {
                     survivorList.add(new Child());
-                    break;
+                    //    System.out.println("Added Child");
+                }
+
             }
         }
     }
-    
+
     //create random number of zombies
-    public void createZombie(){
+    public void createZombie() {
         Random rand = new Random();
         //generate numbers between 1 and 10;
-        int numOfZombie = rand.nextInt(10)+1;
-        for(int i=0;i<numOfZombie;i++){
+        int numOfZombie = rand.nextInt(10) + 1;
+        for (int i = 0; i < numOfZombie; i++) {
             //generate numbers 0 to 1
             int randNum = rand.nextInt(2);
             switch (randNum) {
-                case 0://create Tank zombie if random number is 0
+                case 0 -> //create Tank zombie if random number is 0
+                {
                     zombieList.add(new Tank());
-                    break;
-                case 1://create CommonInfected zombie if random number is 1
+                    //    System.out.println("Added Tank Zombie");
+                }
+
+                case 1 -> //create CommonInfected zombie if random number is 1
+                {
                     zombieList.add(new CommonInfected());
-                    break;
+                    //      System.out.println("Added Normal Zombie");
+                }
+
             }
         }
     }
-    
+
     //each survivor attacks every zombie
-    public void survivorAttack(){
-        for(int i=0;i<survivorList.size();i++){
-            for(int j=0;j<zombieList.size();j++){
+    public void survivorAttack() {
+        for (int i = 0; i < survivorList.size(); i++) {
+            for (int j = 0; j < zombieList.size(); j++) {
                 //if survivor is alive, survivor attacks
-                if(survivorList.get(i).checkAlive()==true){
+                if (survivorList.get(i).checkAlive() == true) {
                     survivorList.get(i).doAttack(zombieList.get(j));
                 }
             }
         }
     }
-    
+
     //each zombie attacks every survivor
-    public void zombieAttack(){
-        for(int i=0;i<zombieList.size();i++){
-            for(int j=0;j<survivorList.size();j++){
+    public void zombieAttack() {
+        for (int i = 0; i < zombieList.size(); i++) {
+            for (int j = 0; j < survivorList.size(); j++) {
                 //if zombie is alive, zombie attacks
-                if(zombieList.get(i).checkAlive()==true){
+                if (zombieList.get(i).checkAlive() == true) {
                     zombieList.get(i).doAttack(survivorList.get(j));
                 }
             }
         }
     }
-    
+
     //check for number of entities alive and return number
-    public Integer checkSurvivingEntities(ArrayList<Entity> list){
+    public Integer checkSurvivingEntities(ArrayList<Entity> list) {
         int survivingSurvivors = 0;
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).checkAlive()==true){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).checkAlive() == true) {
                 survivingSurvivors++;
             }
         }
         return survivingSurvivors;
     }
-    
+
     //prints results
-    public void printResults(){
+    public void printResults() {
         System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety.");
         System.out.println("But there are " + zombieList.size() + " zombies waiting for them.");
         System.out.println("It seems " + checkSurvivingEntities(survivorList) + " made it to safety.");
     }
-    
-    public void run(){
+
+    public void run() {
         createSurvivor();
         createZombie();
         int survivorsAlive = checkSurvivingEntities(survivorList);
         int zombiesAlive = checkSurvivingEntities(zombieList);
-        
+
         //while there are still more than 0 survivors alive and more than 0 zombies alive, they attack each other
-        while(survivorsAlive>0 && zombiesAlive>0){
+        while (survivorsAlive > 0 && zombiesAlive > 0) {
             survivorAttack();
             zombieAttack();
             survivorsAlive = checkSurvivingEntities(survivorList);
-            zombiesAlive=checkSurvivingEntities(zombieList);
+            zombiesAlive = checkSurvivingEntities(zombieList);
         }
         printResults();
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         new Main().run();
-        
+
     }
 }
