@@ -7,6 +7,11 @@ public class CommonInfected extends Zombie {
     private int health = 30;
     final private int damage = 5;
     private boolean isAlive = true;
+    private int typeCount;
+
+    public CommonInfected(int num) {
+        typeCount = num;
+    }
 
     @Override
     public void doAttack(Entity target) {
@@ -25,5 +30,10 @@ public class CommonInfected extends Zombie {
     @Override
     public boolean checkAlive() {
         return isAlive;
+    }
+
+    @Override
+    public int getTypeCount() {
+        return typeCount;
     }
 }

@@ -7,6 +7,11 @@ public class Teacher extends Survivor {
     private int health = 50;
     final private int damage = 5;
     private boolean isAlive = true;
+    private int typeCount;
+
+    public Teacher(int num) {
+        typeCount = num;
+    }
 
     @Override
     public void doAttack(Entity target) {
@@ -25,5 +30,10 @@ public class Teacher extends Survivor {
     @Override
     public boolean checkAlive() {
         return isAlive;
+    }
+
+    @Override
+    public int getTypeCount() {
+        return typeCount;
     }
 }

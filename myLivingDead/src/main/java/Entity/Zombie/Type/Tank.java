@@ -7,6 +7,11 @@ public class Tank extends Zombie {
     private int health = 150;
     final private int damage = 20;
     private boolean isAlive = true;
+    private int typeCount;
+
+    public Tank(int num) {
+        typeCount = num;
+    }
 
     @Override
     public void doAttack(Entity target) {
@@ -25,5 +30,10 @@ public class Tank extends Zombie {
     @Override
     public boolean checkAlive() {
         return isAlive;
+    }
+
+    @Override
+    public int getTypeCount() {
+        return typeCount;
     }
 }
