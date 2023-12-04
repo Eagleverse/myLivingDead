@@ -89,7 +89,7 @@ public class Main {
                     // Check if the survivor killed the zombie
                     if (!zombieList.get(j).checkAlive()) {
                         System.out.println(survivorList.get(i).getClass().getSimpleName() + " " + survivorList.get(i).getTypeCount()
-                           + " killed " + zombieList.get(j).getClass().getSimpleName() + " " + zombieList.get(j).getTypeCount());
+                                + " killed " + zombieList.get(j).getClass().getSimpleName() + " " + zombieList.get(j).getTypeCount());
                     }
                 }
             }
@@ -106,8 +106,8 @@ public class Main {
 
                     // Check if the zombie killed the survivor
                     if (!survivorList.get(j).checkAlive()) {
-                        System.out.println(zombieList.get(i).getClass().getSimpleName() + " " + zombieList.get(i).getTypeCount() + 
-                              " killed " + survivorList.get(j).getClass().getSimpleName() + " " + survivorList.get(j).getTypeCount());
+                        System.out.println(zombieList.get(i).getClass().getSimpleName() + " " + zombieList.get(i).getTypeCount()
+                                + " killed " + survivorList.get(j).getClass().getSimpleName() + " " + survivorList.get(j).getTypeCount());
                     }
                 }
             }
@@ -137,8 +137,8 @@ public class Main {
         int zombiesAlive = checkSurvivingEntities(zombieList);
 
         // Print opening message.
-        System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety "+childCount+" children, "+teacherCount+" teachers, "+soldierCount+" soldiers)");
-        System.out.println("But there are " + zombieList.size() + " zombies waiting for them ("+commonInfectCount+" common infected, "+tankCount+" tanks)");
+        System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety " + childCount + " children, " + teacherCount + " teachers, " + soldierCount + " soldiers)");
+        System.out.println("But there are " + zombieList.size() + " zombies waiting for them (" + commonInfectCount + " common infected, " + tankCount + " tanks)");
 
         //while there are still more than 0 survivors alive and more than 0 zombies alive, they attack each other
         while (survivorsAlive > 0 && zombiesAlive > 0) {
@@ -152,6 +152,5 @@ public class Main {
 
     public static void main(String[] args) {
         new Main().run();
-
     }
 }
