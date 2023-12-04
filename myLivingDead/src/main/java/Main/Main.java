@@ -19,8 +19,9 @@ public class Main {
 
     private final ArrayList<Entity> survivorList = new ArrayList<>();
     private final ArrayList<Entity> zombieList = new ArrayList<>();
-    private int[] survivors = new int[3];
-    private int[] zombies = new int[2];
+    // Arrays to store number of each type of survivor and zombie.
+    private int[] survivors = new int[3]; // 0 = Child , 1 = Teacher , 2 = Soldier
+    private int[] zombies = new int[2]; // 0 = Common Infected , 1 = Tank
 
     //create random number of survivors
     public void createSurvivor() {
@@ -79,11 +80,18 @@ public class Main {
 
     //each survivor attacks every zombie
     public void survivorAttack() {
+
         for (int i = 0; i < survivorList.size(); i++) {
             for (int j = 0; j < zombieList.size(); j++) {
-                //if survivor is alive, survivor attacks
-                if (survivorList.get(i).checkAlive() == true) {
+                //if survivor and zombie is alive, survivor attacks
+                if (survivorList.get(i).checkAlive() && zombieList.get(j).checkAlive()) {
                     survivorList.get(i).doAttack(zombieList.get(j));
+
+                    // Check if the survivor killed the zombie
+                    if (!zombieList.get(j).checkAlive()) {
+                        System.out.println(survivorList.get(i).getClass().getSimpleName() + " " + i + " killed " 
+                                      + zombieList.get(j).getClass().getSimpleName() + " " + j);
+                    }
                 }
             }
         }
@@ -94,8 +102,14 @@ public class Main {
         for (int i = 0; i < zombieList.size(); i++) {
             for (int j = 0; j < survivorList.size(); j++) {
                 //if zombie is alive, zombie attacks
-                if (zombieList.get(i).checkAlive() == true) {
+                if (zombieList.get(i).checkAlive() && survivorList.get(j).checkAlive()) {
                     zombieList.get(i).doAttack(survivorList.get(j));
+
+                    // Check if the zombie killed the survivor
+                    if (!survivorList.get(j).checkAlive()) {
+                        System.out.println(zombieList.get(i).getClass().getSimpleName() + " " + i + " killed " 
+                                      + survivorList.get(j).getClass().getSimpleName() + " " + j);
+                    }
                 }
             }
         }
@@ -114,8 +128,6 @@ public class Main {
 
     //prints results
     public void printResults() {
-        System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety "+survivors[0]+" children, "+survivors[1]+" teachers, "+survivors[2]+" soldiers)");
-        System.out.println("But there are " + zombieList.size() + " zombies waiting for them ("+zombies[0]+" common infected, "+zombies[1]+" tanks)");
         System.out.println("It seems " + checkSurvivingEntities(survivorList) + " made it to safety.");
     }
 
@@ -124,6 +136,11 @@ public class Main {
         createZombie();
         int survivorsAlive = checkSurvivingEntities(survivorList);
         int zombiesAlive = checkSurvivingEntities(zombieList);
+
+        // Print opening message.
+        System.out.println("We have " + survivorList.size() + " survivors trying to make it to safety "+survivors[0]+" children, "+survivors[1]+" teachers, "+survivors[2]+" soldiers)");
+        System.out.println("But there are " + zombieList.size() + " zombies waiting for them ("+zombies[0]+" common infected, "+zombies[1]+" tanks)");
+
         //while there are still more than 0 survivors alive and more than 0 zombies alive, they attack each other
         while (survivorsAlive > 0 && zombiesAlive > 0) {
             survivorAttack();
