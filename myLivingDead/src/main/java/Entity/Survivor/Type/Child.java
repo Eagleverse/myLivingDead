@@ -7,6 +7,11 @@ public class Child extends Survivor {
     private int health = 20;
     final private int damage = 2;
     private boolean isAlive = true;
+    private int typeCount;
+
+    public Child(int num) {
+        typeCount = num;
+    }
     
     @Override
     public void doAttack(Entity target) {
@@ -25,5 +30,10 @@ public class Child extends Survivor {
     @Override
     public boolean checkAlive() {
         return isAlive;
+    }
+
+    @Override
+    public int getTypeCount() {
+        return typeCount;
     }
 }
