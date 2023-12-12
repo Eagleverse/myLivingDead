@@ -9,6 +9,7 @@ import Entity.Entity;
 import Entity.Survivor.Type.*;
 //import Entity.Zombie.Zombie;
 import Entity.Zombie.Type.*;
+import Weapon.Weapon;
 import java.util.*;
 
 /**
@@ -19,6 +20,7 @@ public class Main {
 
     private final ArrayList<Entity> survivorList = new ArrayList<>();
     private final ArrayList<Entity> zombieList = new ArrayList<>();
+    private final ArrayList<Weapon> itemList = new ArrayList<>();
 
     private int childCount = 0, soldierCount = 0, teacherCount = 0, commonInfectCount = 0, tankCount = 0;
 
@@ -77,6 +79,27 @@ public class Main {
         }
     }
 
+     public void giveItems() {
+        Random rand = new Random();
+        //generate numbers between 1 and 10;
+        int numOfItem = this.survivorList.size();
+        for (int i = 0; i < numOfItem; i++) {
+            //generate numbers 0 to 1
+            int randNum = rand.nextInt(2);
+            switch (randNum) {
+                case 0 -> // Survivor is unarmed
+                {
+                    itemList.add(new Weapon("Fists",1));
+                }
+
+                case 1 -> //Survivor has a noodle.
+                {
+                    itemList.add(new Weapon("Fists",1));
+                }
+
+            }
+        }
+    }
     //each survivor attacks every zombie
     public void survivorAttack() {
 
