@@ -12,10 +12,12 @@ public class Weapon {
 
     private final String type;
     private int damage;
+    private final int accuracy;
 
-    public Weapon(String item, int DMG) {
+    public Weapon(String item, int DMG,int accur) {
         this.type = item;
         this.damage = DMG;
+        this.accuracy = accur;
     }
 
     public String getType() {
@@ -24,6 +26,9 @@ public class Weapon {
 
     public int getDamage() {
         return this.damage;
+    }
+        public int getAccuracy() {
+        return this.accuracy;
     }
 
     public void setDamage(int newDamage) {
