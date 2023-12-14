@@ -13,4 +13,8 @@ public abstract class Entity {
     public abstract boolean checkAlive();
 
     public abstract int getTypeCount();
+
+    public void setDamage(int damage1, int accuracy) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

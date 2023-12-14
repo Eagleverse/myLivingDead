@@ -13,7 +13,7 @@ import Weapon.Weapon;
 public class Gun extends Weapon {
     private int ammo;
     public Gun(String item, int DMG,int ammo) {
-        super(item, DMG);
+        super(item, DMG,88);
         this.ammo = ammo;
     }
     public boolean hasAmmo(){

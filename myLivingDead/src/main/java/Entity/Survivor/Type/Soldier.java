@@ -4,8 +4,10 @@ import Entity.Entity;
 import Entity.Survivor.Survivor;
 
 public class Soldier extends Survivor {
+
     private int health = 100;
-    final private int damage = 10;
+    private int damage = 10;
+    private int accuracy = 100;
     private boolean isAlive = true;
     private int typeCount;
 
@@ -13,9 +15,17 @@ public class Soldier extends Survivor {
         typeCount = num;
     }
 
+    public void setDamage(int weaponDamage, int weaponAccuracy) {
+        //Replace default damage upon recieving item
+        //Depends on accuracy roll in doAttack
+        this.damage = weaponDamage;
+        this.accuracy = weaponAccuracy;
+    }
+
     @Override
     public void doAttack(Entity target) {
-        target.onAttack(damage);
+        int attackDamage = rollForAccuracy(this.accuracy);
+        target.onAttack(attackDamage);
     }
 
     @Override
@@ -24,6 +34,20 @@ public class Soldier extends Survivor {
         // if this entities health is 0 or less they are dead
         if (health <= 0) {
             isAlive = false;
+        }
+    }
+
+    public int rollForAccuracy(int weaponAccuracy) {
+        // Binary hit or miss for now.
+        int foo = (int) (Math.random() * 100);
+        if (foo < weaponAccuracy) // 0-W.A
+        {
+            //Sweet spot where the weapon hit in the range of W.A% of the time
+            return this.damage;
+        } else // W.A+1 -> 99
+        {
+            // Oops, the dice wanted a higher accuracy than the max. 0 damage.
+            return 0;
         }
     }
 
