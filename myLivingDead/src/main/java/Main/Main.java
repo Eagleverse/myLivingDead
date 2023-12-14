@@ -79,7 +79,7 @@ public class Main {
         }
     }
 
-    public void giveItems() {
+     public void giveItems() {
         Random rand = new Random();
         //generate numbers between 1 and 10;
         int numOfItem = this.survivorList.size();
@@ -89,18 +89,17 @@ public class Main {
             switch (randNum) {
                 case 0 -> // Survivor is unarmed
                 {
-                    itemList.add(new Weapon("Fists", 1, 100));
+                    itemList.add(new Weapon("Fists",1));
                 }
 
                 case 1 -> //Survivor has a noodle.
                 {
-                    itemList.add(new Weapon("Pool Noodle", 1, 50));
+                    itemList.add(new Weapon("Fists",1));
                 }
 
             }
         }
     }
-
     //each survivor attacks every zombie
     public void survivorAttack() {
 
