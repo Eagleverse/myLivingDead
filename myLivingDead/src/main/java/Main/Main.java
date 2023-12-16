@@ -5,10 +5,11 @@
 package Main;
 
 import Entity.Entity;
-//import Entity.Survivor.Survivor;
+import Entity.Survivor.Survivor;
 import Entity.Survivor.Type.*;
-//import Entity.Zombie.Zombie;
+import Entity.Zombie.Zombie;
 import Entity.Zombie.Type.*;
+import Weapon.Type.*;
 import Weapon.Weapon;
 import java.util.*;
 
@@ -20,7 +21,6 @@ public class Main {
 
     private final ArrayList<Entity> survivorList = new ArrayList<>();
     private final ArrayList<Entity> zombieList = new ArrayList<>();
-    private final ArrayList<Weapon> itemList = new ArrayList<>();
 
     private int childCount = 0, soldierCount = 0, teacherCount = 0, commonInfectCount = 0, tankCount = 0;
 
@@ -35,23 +35,48 @@ public class Main {
             switch (randNum) {
                 case 0 -> //create Soldier survivor if random number is 0
                 {
-                    survivorList.add(new Soldier(soldierCount));
+                    survivorList.add(new Soldier(soldierCount, createWeapon()));
                     soldierCount++;
                 }
                 case 1 -> //create Teacher survivor if random number is 1
                 {
-                    survivorList.add(new Teacher(teacherCount));
+                    survivorList.add(new Teacher(teacherCount, createWeapon()));
                     teacherCount++;
                 }
 
                 case 2 -> //create Child survivor if random number is 2
                 {
-                    survivorList.add(new Child(childCount));
+                    survivorList.add(new Child(childCount, createWeapon()));
                     childCount++;
                 }
 
             }
         }
+    }
+
+    public Weapon createWeapon() {
+        Weapon thisWeapon = null;
+        // generate random number between 1 and 7
+        int max = 7;
+        int min = 1;
+        int randInt = min + (int)(Math.random() * ((max-min) + 1));
+        switch (randInt) {
+            // Create assault rifle if 1
+            case 1 -> thisWeapon = new AssaultRifle();
+            // Create axe if 2
+            case 2 -> thisWeapon = new Axe();
+            // Create crowbar if 3
+            case 3 -> thisWeapon = new Crowbar();
+            // Create frying pan if 4
+            case 4 -> thisWeapon = new FryingPan();
+            // Create pistol if 5
+            case 5 -> thisWeapon = new Pistol();
+            // Create shotgun if 6
+            case 6 -> thisWeapon = new Shotgun();
+            // Create submachine gun if 7
+            case 7 -> thisWeapon = new SubmachineGun();
+        }
+        return thisWeapon;
     }
 
     //create random number of zombies
@@ -79,52 +104,23 @@ public class Main {
         }
     }
 
-    public void giveItems() {
-        Random rand = new Random();
-        //generate numbers between 1 and 10;
-        int numOfItem = this.survivorList.size();
-        for (int i = 0; i < numOfItem; i++) {
-            //generate numbers 0 to 1
-            int randNum = rand.nextInt(2);
-            switch (randNum) {
-                case 0 -> // Survivor is unarmed
-                {
-                    itemList.add(new Weapon("Fists", 1, 50));
-                }
-
-                case 1 -> //Survivor has a noodle.
-                {
-                    itemList.add(new Weapon("Fists", 1, 50));
-                }
-
-            }
-        }
-    }
-
-    public void assignItems() {
-        for(Entity i:survivorList){
-            try{
-                i.setDamage(itemList.get(0).getDamage(),itemList.get(0).getAccuracy());
-            }catch(Exception e){
-                System.out.print("0");
-            }
-  
-        }
-    }
-
     //each survivor attacks every zombie
     public void survivorAttack() {
 
         for (int i = 0; i < survivorList.size(); i++) {
             for (int j = 0; j < zombieList.size(); j++) {
+                // store current survivor and zombie to neaten code
+                Survivor thisSurvivor = (Survivor) survivorList.get(i);
+                Zombie thisZombie = (Zombie) zombieList.get(j);
                 //if survivor and zombie is alive, survivor attacks
-                if (survivorList.get(i).checkAlive() && zombieList.get(j).checkAlive()) {
-                    survivorList.get(i).doAttack(zombieList.get(j));
+                if (thisSurvivor.checkAlive() && thisZombie.checkAlive()) {
+                    thisSurvivor.doAttack(thisZombie);
 
                     // Check if the survivor killed the zombie
-                    if (!zombieList.get(j).checkAlive()) {
-                        System.out.println(survivorList.get(i).getClass().getSimpleName() + " " + survivorList.get(i).getTypeCount()
-                                + " killed " + zombieList.get(j).getClass().getSimpleName() + " " + zombieList.get(j).getTypeCount());
+                    if (!thisZombie.checkAlive()) {
+                        System.out.println(thisSurvivor.getClass().getSimpleName() + " " + thisSurvivor.getTypeCount()
+                                + " killed " + thisZombie.getClass().getSimpleName() + " " + thisZombie.getTypeCount() + " with a " +
+                                 thisSurvivor.getWeapon().getType());
                     }
                 }
             }
@@ -135,14 +131,17 @@ public class Main {
     public void zombieAttack() {
         for (int i = 0; i < zombieList.size(); i++) {
             for (int j = 0; j < survivorList.size(); j++) {
+                // store current survivor and zombie to neaten code
+                Survivor thisSurvivor = (Survivor) survivorList.get(j);
+                Zombie thisZombie = (Zombie) zombieList.get(i);
                 //if zombie is alive, zombie attacks
-                if (zombieList.get(i).checkAlive() && survivorList.get(j).checkAlive()) {
-                    zombieList.get(i).doAttack(survivorList.get(j));
+                if (thisZombie.checkAlive() && thisSurvivor.checkAlive()) {
+                    thisZombie.doAttack(thisSurvivor);
 
                     // Check if the zombie killed the survivor
-                    if (!survivorList.get(j).checkAlive()) {
-                        System.out.println(zombieList.get(i).getClass().getSimpleName() + " " + zombieList.get(i).getTypeCount()
-                                + " killed " + survivorList.get(j).getClass().getSimpleName() + " " + survivorList.get(j).getTypeCount());
+                    if (!thisSurvivor.checkAlive()) {
+                        System.out.println(thisZombie.getClass().getSimpleName() + " " + thisZombie.getTypeCount()
+                                + " killed " + thisSurvivor.getClass().getSimpleName() + " " + thisSurvivor.getTypeCount());
                     }
                 }
             }
@@ -153,7 +152,7 @@ public class Main {
     public Integer checkSurvivingEntities(ArrayList<Entity> list) {
         int survivingSurvivors = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).checkAlive() == true) {
+            if (list.get(i).checkAlive()) {
                 survivingSurvivors++;
             }
         }

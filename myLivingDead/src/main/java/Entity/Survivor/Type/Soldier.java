@@ -2,30 +2,38 @@ package Entity.Survivor.Type;
 
 import Entity.Entity;
 import Entity.Survivor.Survivor;
+import Weapon.Weapon;
+import Weapon.Gun;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Soldier extends Survivor {
 
     private int health = 100;
-    private int damage = 10;
+    private Weapon weapon;
     private int accuracy = 100;
     private boolean isAlive = true;
     private int typeCount;
 
-    public Soldier(int num) {
+    public Soldier(int num, Weapon weapon) {
         typeCount = num;
-    }
-
-    public void setDamage(int weaponDamage, int weaponAccuracy) {
-        //Replace default damage upon recieving item
-        //Depends on accuracy roll in doAttack
-        this.damage = weaponDamage;
-        this.accuracy = weaponAccuracy;
+        this.weapon = weapon;
     }
 
     @Override
     public void doAttack(Entity target) {
-        int attackDamage = rollForAccuracy(this.accuracy);
-        target.onAttack(attackDamage);
+        // Get the interfaces that the weapon implements
+        List<Class<?>> interfaces = Arrays.asList(weapon.getClass().getInterfaces());
+        // If it implements the gun interface
+        if (interfaces.contains(Gun.class)) {
+            // Cast the weapon to a gun so the fire method is available
+            Gun gun = (Gun) weapon;
+            // attack target
+            target.onAttack(gun.fire());
+        } else { // if the weapon is not a gun
+            target.onAttack(weapon.getDamage());
+        }
     }
 
     @Override
@@ -37,20 +45,6 @@ public class Soldier extends Survivor {
         }
     }
 
-    public int rollForAccuracy(int weaponAccuracy) {
-        // Binary hit or miss for now.
-        int foo = (int) (Math.random() * 100);
-        if (foo < weaponAccuracy) // 0-W.A
-        {
-            //Sweet spot where the weapon hit in the range of W.A% of the time
-            return this.damage;
-        } else // W.A+1 -> 99
-        {
-            // Oops, the dice wanted a higher accuracy than the max. 0 damage.
-            return 0;
-        }
-    }
-
     @Override
     public boolean checkAlive() {
         return isAlive;
@@ -59,5 +53,10 @@ public class Soldier extends Survivor {
     @Override
     public int getTypeCount() {
         return typeCount;
+    }
+
+    @Override
+    public Weapon getWeapon() {
+        return weapon;
     }
 }
