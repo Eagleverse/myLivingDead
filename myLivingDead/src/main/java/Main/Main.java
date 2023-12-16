@@ -35,18 +35,18 @@ public class Main {
             switch (randNum) {
                 case 0 -> //create Soldier survivor if random number is 0
                 {
-                    survivorList.add(new Soldier(soldierCount, createWeapon(1)));
+                    survivorList.add(new Soldier(soldierCount, createWeapon()));
                     soldierCount++;
                 }
                 case 1 -> //create Teacher survivor if random number is 1
                 {
-                    survivorList.add(new Teacher(teacherCount, createWeapon(.8)));
+                    survivorList.add(new Teacher(teacherCount, createWeapon()));
                     teacherCount++;
                 }
 
                 case 2 -> //create Child survivor if random number is 2
                 {
-                    survivorList.add(new Child(childCount, createWeapon(.6)));
+                    survivorList.add(new Child(childCount, createWeapon()));
                     childCount++;
                 }
 
@@ -54,7 +54,7 @@ public class Main {
         }
     }
 
-    public Weapon createWeapon(double accuracyMod) {
+    public Weapon createWeapon() {
         Weapon thisWeapon = null;
         // generate random number between 1 and 7
         int max = 7;
@@ -63,7 +63,7 @@ public class Main {
         switch (randInt) {
             // Create assault rifle if 1
             case 1 ->
-                thisWeapon = new AssaultRifle(accuracyMod);
+                thisWeapon = new AssaultRifle();
             // Create axe if 2
             case 2 ->
                 thisWeapon = new Axe();
@@ -75,13 +75,13 @@ public class Main {
                 thisWeapon = new FryingPan();
             // Create pistol if 5
             case 5 ->
-                thisWeapon = new Pistol(accuracyMod);
+                thisWeapon = new Pistol();
             // Create shotgun if 6
             case 6 ->
-                thisWeapon = new Shotgun(accuracyMod);
+                thisWeapon = new Shotgun();
             // Create submachine gun if 7
             case 7 ->
-                thisWeapon = new SubmachineGun(accuracyMod);
+                thisWeapon = new SubmachineGun();
         }
         return thisWeapon;
     }

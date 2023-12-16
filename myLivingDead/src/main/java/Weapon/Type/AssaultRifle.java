@@ -4,14 +4,11 @@ import Weapon.Gun;
 
 public class AssaultRifle implements Gun {
 
-    private double AccuracyModifier;
-
-    public AssaultRifle(double accuracyMod) {
-        this.AccuracyModifier = accuracyMod;
+    public AssaultRifle() {
     }
     private final String type = "assault rifle";
     private final int damage = 15;
-    private final int accuracy = (int) (90 * this.AccuracyModifier);
+    private final int accuracy = 90;
     //Moderate difficulty to get accurate.
     private int ammo = 10;
 

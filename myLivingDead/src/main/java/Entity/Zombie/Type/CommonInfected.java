@@ -14,22 +14,9 @@ public class CommonInfected extends Zombie {
         typeCount = num;
     }
 
-    private int hit() {
-        // generate random number to determine if the zombie hits.
-        int max = 100;
-        int min = 1;
-        int randInt = min + (int) (Math.random() * ((max - min) + 1));
-        //These guys are accurate but not too strong.
-        if (randInt <= 95) { //Their arms meet their target 95% of the time.
-            return damage;
-        } else { // Missed.
-            return 0;
-        }
-    }
-
     @Override
     public void doAttack(Entity target) {
-        target.onAttack(hit());
+        target.onAttack(damage);
     }
 
     @Override

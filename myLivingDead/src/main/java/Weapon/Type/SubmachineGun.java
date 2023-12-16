@@ -4,15 +4,12 @@ import Weapon.Gun;
 
 public class SubmachineGun implements Gun {
 
-    private double AccuracyModifier;
-
-    public SubmachineGun(double accuracyMod) {
-        AccuracyModifier = accuracyMod;
+    public SubmachineGun() {
 
     }
     private final String type = "submachine gun";
     private final int damage = 12;
-    private final int accuracy = (int) (65*AccuracyModifier-.1);
+    private final int accuracy = 65;
     //Harder to manage
     private int ammo = 17;
 

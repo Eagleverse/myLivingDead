@@ -14,22 +14,9 @@ public class Tank extends Zombie {
         typeCount = num;
     }
 
-    private int hit() {
-        // generate random number to determine if the zombie hits.
-        int max = 100;
-        int min = 1;
-        int randInt = min + (int) (Math.random() * ((max - min) + 1));
-        //These guys are heavy but can't swing their arms too well.
-        if (randInt <= 75) { //Their arms meet their target 75% of the time.
-            return damage;
-        } else { // Missed.
-            return 0;
-        }
-    }
-
     @Override
     public void doAttack(Entity target) {
-        target.onAttack(hit());
+        target.onAttack(this.damage);
     }
 
     @Override

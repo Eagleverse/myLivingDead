@@ -4,15 +4,12 @@ import Weapon.Gun;
 
 public class Shotgun implements Gun {
 
-    private double AccuracyModifier;
-
-    public Shotgun(double accuracyMod) {
-        this.AccuracyModifier = accuracyMod;
+    public Shotgun() {
 
     }
     private final String type = "shotgun";
     private final int damage = 25;
-    private final int accuracy = (int) (50*this.AccuracyModifier);
+    private final int accuracy = 50;
     private int ammo = 5;
 
     @Override
