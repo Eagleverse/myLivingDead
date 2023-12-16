@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Teacher extends Survivor {
+
     private int health = 50;
     private Weapon weapon;
     private boolean isAlive = true;

@@ -11,8 +11,8 @@ import java.util.List;
 public class Soldier extends Survivor {
 
     private int health = 100;
-    private Weapon weapon;
-    private int accuracy = 100;
+    private final Weapon weapon;
+    private final int accuracy = 100;
     private boolean isAlive = true;
     private int typeCount;
 

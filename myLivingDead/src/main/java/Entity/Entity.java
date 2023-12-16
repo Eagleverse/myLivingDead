@@ -1,6 +1,7 @@
 package Entity;
 
 public abstract class Entity {
+
     private int health;
     private int damage;
     private boolean isAlive;

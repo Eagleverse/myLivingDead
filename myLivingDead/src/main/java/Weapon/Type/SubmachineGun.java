@@ -3,10 +3,19 @@ package Weapon.Type;
 import Weapon.Gun;
 
 public class SubmachineGun implements Gun {
+
+    private double AccuracyModifier;
+
+    public SubmachineGun(double accuracyMod) {
+        AccuracyModifier = accuracyMod;
+
+    }
     private final String type = "submachine gun";
     private final int damage = 12;
-    private final int accuracy = 65;
+    private final int accuracy = (int) (65*AccuracyModifier-.1);
+    //Harder to manage
     private int ammo = 17;
+
     @Override
     public boolean hasAmmo() {
         return ammo > 0;
@@ -19,7 +28,7 @@ public class SubmachineGun implements Gun {
             // generate random number to determine if the shot hits
             int max = 100;
             int min = 1;
-            int randInt = min + (int)(Math.random() * ((max-min) + 1));
+            int randInt = min + (int) (Math.random() * ((max - min) + 1));
             // determine if the shot hits based off accuracy
             if (randInt <= accuracy) { // the shot hits
                 ammo--;

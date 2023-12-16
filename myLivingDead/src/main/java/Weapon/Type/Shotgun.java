@@ -3,10 +3,18 @@ package Weapon.Type;
 import Weapon.Gun;
 
 public class Shotgun implements Gun {
+
+    private double AccuracyModifier;
+
+    public Shotgun(double accuracyMod) {
+        this.AccuracyModifier = accuracyMod;
+
+    }
     private final String type = "shotgun";
     private final int damage = 25;
-    private final int accuracy = 50;
+    private final int accuracy = (int) (50*this.AccuracyModifier);
     private int ammo = 5;
+
     @Override
     public boolean hasAmmo() {
         return ammo > 0;
@@ -19,7 +27,7 @@ public class Shotgun implements Gun {
             // generate random number to determine if the shot hits
             int max = 100;
             int min = 1;
-            int randInt = min + (int)(Math.random() * ((max-min) + 1));
+            int randInt = min + (int) (Math.random() * ((max - min) + 1));
             // determine if the shot hits based off accuracy
             if (randInt <= accuracy) { // the shot hits
                 ammo--;

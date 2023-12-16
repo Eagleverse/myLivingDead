@@ -9,8 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Child extends Survivor {
+
     private int health = 20;
-    private Weapon weapon;
+    private final Weapon weapon;
     private boolean isAlive = true;
     private int typeCount;
 
@@ -18,7 +19,7 @@ public class Child extends Survivor {
         typeCount = num;
         this.weapon = weapon;
     }
-    
+
     @Override
     public void doAttack(Entity target) {
         // Get the interfaces that the weapon implements

@@ -35,18 +35,18 @@ public class Main {
             switch (randNum) {
                 case 0 -> //create Soldier survivor if random number is 0
                 {
-                    survivorList.add(new Soldier(soldierCount, createWeapon()));
+                    survivorList.add(new Soldier(soldierCount, createWeapon(1)));
                     soldierCount++;
                 }
                 case 1 -> //create Teacher survivor if random number is 1
                 {
-                    survivorList.add(new Teacher(teacherCount, createWeapon()));
+                    survivorList.add(new Teacher(teacherCount, createWeapon(.8)));
                     teacherCount++;
                 }
 
                 case 2 -> //create Child survivor if random number is 2
                 {
-                    survivorList.add(new Child(childCount, createWeapon()));
+                    survivorList.add(new Child(childCount, createWeapon(.6)));
                     childCount++;
                 }
 
@@ -54,27 +54,34 @@ public class Main {
         }
     }
 
-    public Weapon createWeapon() {
+    public Weapon createWeapon(double accuracyMod) {
         Weapon thisWeapon = null;
         // generate random number between 1 and 7
         int max = 7;
         int min = 1;
-        int randInt = min + (int)(Math.random() * ((max-min) + 1));
+        int randInt = min + (int) (Math.random() * ((max - min) + 1));
         switch (randInt) {
             // Create assault rifle if 1
-            case 1 -> thisWeapon = new AssaultRifle();
+            case 1 ->
+                thisWeapon = new AssaultRifle(accuracyMod);
             // Create axe if 2
-            case 2 -> thisWeapon = new Axe();
+            case 2 ->
+                thisWeapon = new Axe();
             // Create crowbar if 3
-            case 3 -> thisWeapon = new Crowbar();
+            case 3 ->
+                thisWeapon = new Crowbar();
             // Create frying pan if 4
-            case 4 -> thisWeapon = new FryingPan();
+            case 4 ->
+                thisWeapon = new FryingPan();
             // Create pistol if 5
-            case 5 -> thisWeapon = new Pistol();
+            case 5 ->
+                thisWeapon = new Pistol(accuracyMod);
             // Create shotgun if 6
-            case 6 -> thisWeapon = new Shotgun();
+            case 6 ->
+                thisWeapon = new Shotgun(accuracyMod);
             // Create submachine gun if 7
-            case 7 -> thisWeapon = new SubmachineGun();
+            case 7 ->
+                thisWeapon = new SubmachineGun(accuracyMod);
         }
         return thisWeapon;
     }
@@ -119,8 +126,8 @@ public class Main {
                     // Check if the survivor killed the zombie
                     if (!thisZombie.checkAlive()) {
                         System.out.println(thisSurvivor.getClass().getSimpleName() + " " + thisSurvivor.getTypeCount()
-                                + " killed " + thisZombie.getClass().getSimpleName() + " " + thisZombie.getTypeCount() + " with a " +
-                                 thisSurvivor.getWeapon().getType());
+                                + " killed " + thisZombie.getClass().getSimpleName() + " " + thisZombie.getTypeCount() + " with a "
+                                + thisSurvivor.getWeapon().getType());
                     }
                 }
             }
