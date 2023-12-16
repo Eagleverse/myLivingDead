@@ -9,11 +9,7 @@ public class AssaultRifle implements Gun {
     private int ammo = 10;
     @Override
     public boolean hasAmmo() {
-        if (ammo > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return ammo > 0;
     }
 
     @Override
