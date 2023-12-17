@@ -4,6 +4,7 @@ import Entity.Entity;
 import Entity.Zombie.Zombie;
 
 public class Tank extends Zombie {
+
     private int health = 150;
     final private int damage = 20;
     private boolean isAlive = true;
@@ -15,7 +16,7 @@ public class Tank extends Zombie {
 
     @Override
     public void doAttack(Entity target) {
-        target.onAttack(damage);
+        target.onAttack(this.damage);
     }
 
     @Override

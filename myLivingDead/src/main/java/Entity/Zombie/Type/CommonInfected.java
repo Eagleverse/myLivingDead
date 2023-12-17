@@ -4,6 +4,7 @@ import Entity.Entity;
 import Entity.Zombie.Zombie;
 
 public class CommonInfected extends Zombie {
+
     private int health = 30;
     final private int damage = 5;
     private boolean isAlive = true;
